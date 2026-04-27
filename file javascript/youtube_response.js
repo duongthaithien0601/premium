@@ -7359,25 +7359,29 @@ ${o[0][b][0]}`;
           delete this.message?.playbackTracking?.pageadViewthroughconversion);
       }
       addPlayAbility() {
-        if (typeof this.message.playabilityStatus == "object") {
-          if (!this.message.playabilityStatus.miniPlayer) {
-            this.message.playabilityStatus.miniPlayer = {
-              miniPlayerRender: { active: !0 },
-            };
-          } else {
-            let e = this.message.playabilityStatus.miniPlayer.miniPlayerRender;
-            if (typeof e == "object") e.active = !0;
-            else
-              this.message.playabilityStatus.miniPlayer.miniPlayerRender = {
-                active: !0,
-              };
-          }
-          this.message.playabilityStatus.backgroundPlayer = fe.create({
-            backgroundPlayerRender: {
-              active: !0,
-            },
-          });
+        if (
+          typeof this.message.playabilityStatus !== "object" ||
+          this.message.playabilityStatus === null
+        ) {
+          this.message.playabilityStatus = {};
         }
+        if (!this.message.playabilityStatus.miniPlayer) {
+          this.message.playabilityStatus.miniPlayer = {
+            miniPlayerRender: { active: !0 },
+          };
+        } else {
+          let e = this.message.playabilityStatus.miniPlayer.miniPlayerRender;
+          if (typeof e == "object") e.active = !0;
+          else
+            this.message.playabilityStatus.miniPlayer.miniPlayerRender = {
+              active: !0,
+            };
+        }
+        this.message.playabilityStatus.backgroundPlayer = fe.create({
+          backgroundPlayerRender: {
+            active: !0,
+          },
+        });
       }
       addTranslateCaption() {
         let e = this.argument.captionLang;
@@ -7557,27 +7561,6 @@ ${o[0][b][0]}`;
         for (let e of this.message.contents) {
           if (e.player) {
             this.player.message = e.player;
-            if (typeof this.player.message.playabilityStatus === "object") {
-              if (!this.player.message.playabilityStatus.miniPlayer) {
-                this.player.message.playabilityStatus.miniPlayer = {
-                  miniPlayerRender: { active: true },
-                };
-              } else {
-                let mp =
-                  this.player.message.playabilityStatus.miniPlayer
-                    .miniPlayerRender;
-                if (typeof mp === "object") mp.active = true;
-                else
-                  this.player.message.playabilityStatus.miniPlayer.miniPlayerRender =
-                    { active: true };
-              }
-              // Fix backgroundPlayer (Background Play)
-              if (!this.player.message.playabilityStatus.backgroundPlayer) {
-                this.player.message.playabilityStatus.backgroundPlayer = {
-                  backgroundPlayerRender: { active: true },
-                };
-              }
-            }
             await this.player.pure();
           }
           if (e.next) {
