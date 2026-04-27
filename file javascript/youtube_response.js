@@ -7554,11 +7554,33 @@ ${o[0][b][0]}`;
         (super(e, t), (this.player = new be()), (this.next = new ge()));
       }
       async pure() {
-        for (let e of this.message.contents)
-          (e.player &&
-            ((this.player.message = e.player), await this.player.pure()),
-            e.next && ((this.next.message = e.next), await this.next.pure()),
-            (this.needProcess = !0));
+        for (let e of this.message.contents) {
+          if (e.player) {
+            this.player.message = e.player;
+            // Ensure miniPlayer is set before pure() to fix PiP on first launch
+            if (typeof this.player.message.playabilityStatus === "object") {
+              if (!this.player.message.playabilityStatus.miniPlayer) {
+                this.player.message.playabilityStatus.miniPlayer = {
+                  miniPlayerRender: { active: true },
+                };
+              } else {
+                let mp =
+                  this.player.message.playabilityStatus.miniPlayer
+                    .miniPlayerRender;
+                if (typeof mp === "object") mp.active = true;
+                else
+                  this.player.message.playabilityStatus.miniPlayer.miniPlayerRender =
+                    { active: true };
+              }
+            }
+            await this.player.pure();
+          }
+          if (e.next) {
+            this.next.message = e.next;
+            await this.next.pure();
+          }
+          this.needProcess = true;
+        }
         return this;
       }
     };
