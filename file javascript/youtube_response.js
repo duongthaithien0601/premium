@@ -7557,7 +7557,6 @@ ${o[0][b][0]}`;
         for (let e of this.message.contents) {
           if (e.player) {
             this.player.message = e.player;
-            // Ensure miniPlayer is set before pure() to fix PiP on first launch
             if (typeof this.player.message.playabilityStatus === "object") {
               if (!this.player.message.playabilityStatus.miniPlayer) {
                 this.player.message.playabilityStatus.miniPlayer = {
@@ -7571,6 +7570,12 @@ ${o[0][b][0]}`;
                 else
                   this.player.message.playabilityStatus.miniPlayer.miniPlayerRender =
                     { active: true };
+              }
+              // Fix backgroundPlayer (Background Play)
+              if (!this.player.message.playabilityStatus.backgroundPlayer) {
+                this.player.message.playabilityStatus.backgroundPlayer = {
+                  backgroundPlayerRender: { active: true },
+                };
               }
             }
             await this.player.pure();
