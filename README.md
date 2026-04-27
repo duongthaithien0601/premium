@@ -2,10 +2,10 @@
 
 Bản config này cho Shadowrocket chứa:
 
-- ✅ YouTube Premium (Search, Play Page, Short Video, PiP, Background Play)
+- ✅ YouTube Premium 
 - ✅ Spotify Premium
 - ✅ SoundCloud Go+
 - ✅ Truecaller
 - ✅ CamScanner
 - ✅ Locket Gold
-- ✅ iTunes
+
