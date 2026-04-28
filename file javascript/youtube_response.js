@@ -7367,21 +7367,30 @@ ${o[0][b][0]}`;
         }
         if (!this.message.playabilityStatus.miniPlayer) {
           this.message.playabilityStatus.miniPlayer = {
-            miniPlayerRender: { active: !0 },
+            miniPlayerRender: { active: true },
+          };
+        } else if (
+          !this.message.playabilityStatus.miniPlayer.miniPlayerRender
+        ) {
+          this.message.playabilityStatus.miniPlayer.miniPlayerRender = {
+            active: true,
           };
         } else {
-          let e = this.message.playabilityStatus.miniPlayer.miniPlayerRender;
-          if (typeof e == "object") e.active = !0;
-          else
-            this.message.playabilityStatus.miniPlayer.miniPlayerRender = {
-              active: !0,
-            };
+          this.message.playabilityStatus.miniPlayer.miniPlayerRender.active = true;
         }
-        this.message.playabilityStatus.backgroundPlayer = fe.create({
-          backgroundPlayerRender: {
-            active: !0,
-          },
-        });
+        if (!this.message.playabilityStatus.backgroundPlayer) {
+          this.message.playabilityStatus.backgroundPlayer = fe.create({
+            backgroundPlayerRender: { active: true },
+          });
+        } else if (
+          !this.message.playabilityStatus.backgroundPlayer
+            .backgroundPlayerRender
+        ) {
+          this.message.playabilityStatus.backgroundPlayer.backgroundPlayerRender =
+            { active: true };
+        } else {
+          this.message.playabilityStatus.backgroundPlayer.backgroundPlayerRender.active = true;
+        }
       }
       addTranslateCaption() {
         let e = this.argument.captionLang;
